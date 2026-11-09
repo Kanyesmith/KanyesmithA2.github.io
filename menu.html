@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#183c32">
+  <meta name="description" content="Explore the Cafe de Siam Thai restaurant menu, from appetizers and soups to curries, noodles, and dessert.">
+  <title>Menu | Cafe de Siam</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --green: #183c32;
+      --green-deep: #102b24;
+      --gold: #d7ad62;
+      --cream: #f7f2e8;
+      --ink: #20342c;
+      --muted: #64736a;
+      --line: #e6dece;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--cream);
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    a { color: inherit; }
+
+    .topbar {
+      min-height: 76px;
+      padding: 0 7vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      background: var(--green-deep);
+      color: #fffaf0;
+    }
+
+    .brand {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: .03em;
+      text-decoration: none;
+    }
+
+    .brand span { color: var(--gold); }
+    .nav { display: flex; align-items: center; gap: 28px; font: 500 .9rem/1.2 Arial, sans-serif; }
+    .nav a { text-decoration: none; }
+    .nav a:hover, .nav a:focus-visible { color: var(--gold); }
+
+    .menu-hero {
+      padding: 70px 7vw 62px;
+      color: #fffaf0;
+      text-align: center;
+      background:
+        radial-gradient(ellipse at 50% 140%, rgba(215, 173, 98, .26), transparent 55%),
+        var(--green);
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--gold);
+      font: 700 .76rem/1.4 Arial, sans-serif;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+
+    h1 { margin: 0; font-size: clamp(2.8rem, 7vw, 5rem); font-weight: 400; letter-spacing: -.04em; }
+    .menu-intro { max-width: 610px; margin: 18px auto 0; color: #f2ecdf; font: 1rem/1.7 Arial, sans-serif; }
+
+    .menu-nav {
+      position: sticky;
+      z-index: 1;
+      top: 0;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 14px 5vw;
+      border-bottom: 1px solid var(--line);
+      background: rgba(247, 242, 232, .97);
+      scrollbar-width: thin;
+    }
+
+    .menu-nav a {
+      flex: 0 0 auto;
+      padding: 9px 13px;
+      border: 1px solid transparent;
+      border-radius: 20px;
+      color: var(--green);
+      font: 600 .82rem/1.1 Arial, sans-serif;
+      text-decoration: none;
+    }
+
+    .menu-nav a:hover, .menu-nav a:focus-visible { border-color: var(--green); }
+
+    main { max-width: 1040px; margin: 0 auto; padding: 20px 28px 80px; }
+
+    .menu-section { padding-top: 48px; }
+
+    .section-heading {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #c9b894;
+    }
+
+    h2 { margin: 0; color: var(--green); font-size: 2rem; font-weight: 400; }
+    .section-note { margin: 0; color: var(--muted); font: .85rem/1.5 Arial, sans-serif; }
+
+    .items { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+
+    .item {
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      background: rgba(255, 253, 248, .7);
+    }
+
+    .item-top { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+    h3 { margin: 0; color: var(--green-deep); font-size: 1.08rem; font-weight: 700; line-height: 1.4; }
+    .price { flex: 0 0 auto; color: #795b27; font: 700 .95rem/1.4 Arial, sans-serif; white-space: nowrap; }
+    .item p { margin: 8px 0 0; color: var(--muted); font: .9rem/1.55 Arial, sans-serif; }
+    .spice { display: inline-block; margin-top: 9px; color: #795b27; font: 700 .72rem/1.4 Arial, sans-serif; letter-spacing: .04em; }
+    .subprice { display: block; margin-top: 6px; color: var(--muted); font: .82rem/1.5 Arial, sans-serif; }
+
+    footer {
+      padding: 26px 8vw;
+      background: var(--green-deep);
+      color: #f5efe3;
+      text-align: center;
+      font: .85rem/1.5 Arial, sans-serif;
+    }
+    footer span { color: var(--gold); }
+
+    @media (max-width: 680px) {
+      .topbar { padding: 18px 6vw; }
+      .nav { gap: 16px; }
+      .menu-hero { padding: 60px 6vw 50px; }
+      main { padding: 12px 18px 60px; }
+      .items { grid-template-columns: 1fr; }
+      .section-heading { align-items: flex-start; flex-direction: column; gap: 6px; }
+    }
+
+    @media (max-width: 440px) {
+      .topbar { align-items: flex-start; flex-direction: column; gap: 12px; }
+      .nav { width: 100%; justify-content: space-between; }
+      .menu-nav { justify-content: flex-start; }
+      .item { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="mybot.html" aria-label="Cafe de Siam home">Cafe de <span>Siam</span></a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="mybot.html#story">Our Story</a>
+      <a href="menu.html" aria-current="page">Menu</a>
+      <a href="mybot.html#assistant">Ask Us</a>
+    </nav>
+  </header>
+
+  <section class="menu-hero">
+    <p class="eyebrow">Made with warmth</p>
+    <h1>Our Menu</h1>
+    <p class="menu-intro">Explore the flavors of Cafe de Siam, from Thai favorites and comforting curries to something sweet.</p>
+  </section>
+
+  <nav class="menu-nav" aria-label="Menu categories">
+    <a href="#lunch">Lunch</a>
+    <a href="#appetizers">Appetizers</a>
+    <a href="#soups">Soups</a>
+    <a href="#salads">Spicy Salads</a>
+    <a href="#chicken">Chicken</a>
+    <a href="#beef">Beef</a>
+    <a href="#pork">Pork</a>
+    <a href="#seafood">Seafood</a>
+    <a href="#duck">Duck</a>
+    <a href="#noodles">Noodles</a>
+    <a href="#rice">Fried Rice</a>
+    <a href="#dessert">Dessert</a>
+  </nav>
+
+  <main>
+    <section class="menu-section" id="lunch">
+      <div class="section-heading">
+        <h2>Lunch</h2>
+        <p class="section-note">All dine-in lunch specials served with spring rolls and dessert of the day.</p>
+      </div>
+      <div class="items">
+        <article class="item"><div class="item-top"><h3>1. Gang Ped</h3><span class="price">$10.95</span></div><p>Red curry with chicken, bamboo shoots, fresh peppers, and basil in coconut milk, served with steamed white rice.</p></article>
+        <article class="item"><div class="item-top"><h3>2. Pad See Eeu</h3><span class="price">$10.95</span></div><p>Sautéed rice noodles with pork and Chinese broccoli.</p></article>
+        <article class="item"><div class="item-top"><h3>3. Ba Mee Nah Gai</h3><span class="price">$10.95</span></div><p>Egg noodles and bok choy topped with chicken in sesame gravy.</p></article>
+        <article class="item"><div class="item-top"><h3>4. Ba Mee Pad</h3><span class="price">$10.95</span></div><p>Stir-fried egg noodles with chicken, bok choy, bamboo shoots, and mushrooms.</p></article>
+        <article class="item"><div class="item-top"><h3>5. Preow Whan</h3><span class="price">$10.95</span></div><p>Thai-style sweet and sour chicken with tomatoes, cucumbers, onions, and pineapples, served with white rice.</p></article>
+        <article class="item"><div class="item-top"><h3>6. Goung Pad Puk</h3><span class="price">$10.95</span></div><p>Sautéed shrimp with broccoli, cauliflower, carrots, baby corn, and snow peas, served with white rice.</p></article>
+        <article class="item"><div class="item-top"><h3>7. Pad Khing</h3><span class="price">$10.95</span></div><p>Sautéed chicken with ginger, onions, scallions, and black ear mushrooms, served with white rice.</p></article>
+        <article class="item"><div class="item-top"><h3>9. Pad Thai</h3><span class="price">$10.95</span></div><p>Thai-style sautéed rice noodles with chicken and bean sprouts in Pad Thai sauce, sprinkled with ground peanuts.</p></article>
+        <article class="item"><div class="item-top"><h3>10. Crispy Duck</h3><span class="price">$10.95</span></div><p>Roasted duck in crispy batter on a bed of broccoli with Cafe de Siam black sauce and steamed white rice.</p></article>
+        <article class="item"><div class="item-top"><h3>11. Gai Graprau</h3><span class="price">$10.95</span></div><p>Sautéed chicken with Thai basil in fresh pepper sauce, served with steamed white rice.</p></article>
+        <article class="item"><div class="item-top"><h3>Broth Soup</h3><span class="price">$2.00</span></div></article>
+      </div>
+    </section>
+
+    <section class="menu-section" id="appetizers">
+      <div class="section-heading"><h2>Appetizers</h2></div>
+      <div class="items">
+        <article class="item"><div class="item-top"><h3>1. Mee Grob</h3><span class="price">$8.95</span></div><p>Crispy rice noodles with chicken glazed in a sweet and tangy red sauce.</p></article>
+        <article class="item"><div class="item-top"><h3>2. Hoi Tod</h3><span class="price">$10.95</span></div><p>Sautéed mussels in a crispy batter with egg and bean sprouts, served with Thai chili sauce.</p></article>
+        <article class="item"><div class="item-top"><h3>3. Porh Pierh Tod</h3><span class="price">$4.95</span></div><p>Deep-fried spring rolls stuffed with vegetables and clear noodles, served with our homemade plum sauce.</p></article>
+        <article class="item"><div class="item-top"><h3>4. Shu Mai</h3><span class="price">$8.95</span></div><p>Steamed dumplings stuffed with ground pork.</p></article>
+        <article class="item"><div class="item-top"><h3>5. Curry Puffs</h3><span class="price">$8.95</span></div><p>Crispy pastries stuffed with ground chicken, potatoes, and onions.</p></article>
+        <article class="item"><div class="item-top"><h3>6. Touhg Tong</h3><span class="price">$7.95</span></div><p>Seasoned ground pork stuffed in rice-paper pocket shells, served with plum sauce.</p></article>
+        <article class="item"><div class="item-top"><h3>7. Sa-Tay</h3><span class="price">$8.95</span></div><p>Grilled marinated pork strips skewered on bamboo sticks, served with peanut and cucumber sauce.</p></article>
+        <article class="item"><div class="item-top"><h3>8. Pla Murhk Grob</h3><span class="price">$10.95</span></div><p>Deep-fried battered squid rings served with Thai chili sauce.</p></article>
+        <article class="item"><div class="item-top"><h3>9. Pad Thai Appetizer</h3><span class="price">$9.95</span></div><p>Sautéed rice noodles with chicken and bean sprouts, sprinkled with ground peanuts.</p><span class="subprice">Dinner: $15.95 · Chicken only: $13.95 · Chicken and shrimp: $15.95 · Shrimp only: $15.95</span></article>
+        <article class="item"><div class="item-top"><h3>10. Fresh Spring Rolls</h3><span class="price">$8.95</span></div><p>Shrimp, cucumbers, bean sprouts, and tofu wrapped in fresh rice paper, topped with hot mustard and tamarind sauce.</p></article>
+      </div>
+    </section>
+
+    <section class="menu-section" id="soups">
+      <div class="section-heading"><h2>Soups</h2></div>
+      <div class="items">
+        <article class="item"><div class="item-top"><h3>21. Thom Kha Gai — Chicken</h3><span class="price">$4.50</span></div><p>Thai galangal soup in a lemongrass broth with coconut milk and chicken.</p><span class="spice">SPICE LEVEL: MILD</span></article>
+        <article class="item"><div class="item-top"><h3>22. Thom Yum — Chicken</h3><span class="price">$4.00</span></div><p>Thai-style lemongrass broth soup with chicken.</p><span class="spice">SPICE LEVEL: MILD</span></article>
+        <article class="item"><div class="item-top"><h3>22. Thom Yum — Shrimp</h3><span class="price">$4.50</span></div><p>Thai-style lemongrass broth soup with shrimp.</p><span class="spice">SPICE LEVEL: MILD</span></article>
+        <article class="item"><div class="item-top"><h3>22. Thom Yum — Combination Seafood</h3><span class="price">$7.00</span></div><p>Thai-style lemongrass broth soup with a combination of seafood.</p><span class="spice">SPICE LEVEL: MILD</span></article>
+        <article class="item"><div class="item-top"><h3>23. Cau Thom (Rice Soup) — Chicken or Pork</h3><span class="price">$4.00</span></div><p>A traditional Thai rice soup.</p></article>
+        <article class="item"><div class="item-top"><h3>23. Cau Thom (Rice Soup) — Shrimp or Fish</h3><span class="price">$4.50</span></div><p>A traditional Thai rice soup.</p></article>
+        <article class="item"><div class="item-top"><h3>24. Gang Tauhu (Tofu Soup)</h3><span class="price">$4.00</span></div><p>Clear broth soup with tofu, black mushrooms, and scallions.</p></article>
+        <article class="item"><div class="item-top"><h3>25. Gang Woonsen</h3><span class="price">$4.00</span></div><p>Clear vermicelli noodle soup with pork and scallions.</p></article>
+        <article class="item"><div class="item-top"><h3>26. Noodle Soup with Chicken</h3><span class="price">$4.00</span></div><p>Rice noodles with chicken in a clear broth.</p></article>
+        <article class="item"><div class="item-top"><h3>27. Gang Jurd Puk</h3><span class="price">$4.00</span></div><p>A mixed vegetable soup seasoned with roasted garlic bits.</p></article>
+      </div>
+    </section>
+
+    <section class="menu-section" id="salads">
+      <div class="section-heading"><h2>Spicy Salads</h2></div>
+      <div class="items">
+        <article class="item"><div class="item-top"><h3>31. Plah (Shrimp or Squid)</h3><span class="price">$12.95</span></div><p>Shrimp or squid seasoned in lime juice with fresh onions, scallions, and chili peppers.</p><span class="spice">SPICE LEVEL: MILD</span></article>
+        <article class="item"><div class="item-top"><h3>32. Yum Nuer (Beef Salad)</h3><span class="price">$11.95</span></div><p>Grilled tender slices of beef seasoned in lime juice with fresh cucumbers, onions, scallions, and chili peppers.</p><span class="spice">SPICE LEVEL: MILD</span></article>
+        <article class="item"><div class="item-top"><h3>33. Yum Woonsen</h3><span class="price">$11.95</span></div><p>Clear noodles with minced pork and shrimp mixed with herbs and peppers.</p><span class="spice">SPICE LEVEL: MILD</span></article>
+        <article class="item"><div class="item-top"><h3>34. Laarb (Chicken or Pork)</h3><span class="price">$10.95</span></div><p>A choice of minced pork or chicken prepared in a zesty mix of fresh herbs.</p><span class="spice">SPICE LEVEL: MILD</span><span class="subprice">Beef: $11.95</span></article>
+        <article class="item"><div class="item-top"><h3>35. Sohm Thum (Seasonal)</h3><span class="price">$8.95</span></div><p>Shredded green papaya seasoned with garlic, tomato, ground peanuts, and chili.</p><span class="spice">SPICE LEVEL: MILD</span></article>
+        <article class="item"><div class="item-top"><h3>36. Tossed Salad</h3><span class="price">$7.00</span></div><p>A traditional favorite served with a Thai peanut dressing.</p></article>
+      </div>
+    </section>
+
+    <section class="menu-section" id="chicken">
+      <div class="section-heading"><h2>Chicken</h2><p class="section-note">All entrees served with white rice.</p></div>
+      <div class="items">
+        <article class="item"><div class="item-top"><h3>40. Gai Grob</h3><span class="price">$14.95</span></div><p>Crispy sliced chicken in a sweet and tangy pepper sauce served with steamed vegetables.</p><span class="spice">SPICE LEVEL: MILD</span></article>
+        <article class="item"><div class="item-top"><h3>41. Gang Ped (Red or Green Curry)</h3><span class="price">$12.95</span></div><p>A choice of chicken or pork cooked in coconut milk, bamboo shoots, and fresh peppers.</p><span class="spice">SPICE LEVEL: MILD</span><span class="subprice">Beef: $13.95</span></article>
+        <article class="item"><div class="item-top"><h3>42. Panang (Chicken or Pork)</h3><span class="price">$14.95</span></div><p>A choice of chicken or pork cooked in Panang curry and coconut milk with fresh peppers and Thai basil.</p><span class="spice">SPICE LEVEL: MILD</span><span class="subprice">Beef: $15.95</span></article>
+        <article class="item"><div class="item-top"><h3>43. Pad Graprau (Chicken or Pork)</h3><span class="price">$14.95</span></div><p>Coarsely chopped, then sautéed in a fresh pepper sauce with Thai basil.</p><span class="spice">SPICE LEVEL: MILD</span><span class="subprice">Beef: $15.95</span></article>
+        <article class="item"><div class="item-top"><h3>44. Pad Gratiem Prig Thai (Chicken or Pork)</h3><span class="price">$14.95</span></div><p>Sautéed in garlic and black pepper sauce served on a bed of Chinese broccoli.</p><span class="subprice">Beef: $15.95 · Shrimp or squid: $17.95</span></article>
+        <article class="item"><div class="item-top"><h3>45. Pad Khing (Chicken or Pork)</h3><span class="price">$12.95</span></div><p>Sautéed with fresh peppers, ginger, onions, scallions, and black ear mushroom.</p></article>
+        <article class="item"><div class="item-top"><h3>46. Pad Puk (Chicken or Pork)</h3><span class="price">$12.95</span></div><p>Sautéed mixed vegetables with sliced chicken or pork in a brown sauce.</p></article>
+        <article class="item"><div class="item-top"><h3>47. Pad Preow Whan (Chicken or Pork)</h3><span class="price">$12.95</span></div><p>Thai-style sweet and sour with tomatoes, cucumbers, onions, and pineapples.</p></article>
+        <article class="item"><div class="item-top"><h3>48. Amazing Chicken</h3><span class="price">$14.95</span></div><p>Sliced chicken in a special peanut sauce on top of mixed vegetables.</p></article>
+        <article class="item"><div class="item-top"><h3>49. Pad Med Ma Mouhng Himmaparn (Cashew Chicken)</h3><span class="price">$14.95</span></div><p>Sliced chicken sautéed with cashew nuts, onions, scallions, and roasted dried peppers.</p></article>
+      </div>
+    </section>
+
+    <section class="menu-section" id="beef">
+      <div class="section-heading"><h2>Beef</h2><p class="section-note">All entrees served with white rice.</p></div>
+      <div class="items">
+        <article class="item"><div class="item-top"><h3>51. Mussamahn</h3><span class="price">$15.95</span></div><p>Sliced lean beef, potatoes, onions, and peanuts cooked in coconut milk with a special blend of herbs, spices, and Mussamahn curry.</p><span class="spice">SPICE LEVEL: MILD</span></article>
+        <article class="item"><div class="item-top"><h3>52. Nuer Pad Hohm</h3><span class="price">$14.95</span></div><p>Sautéed beef with onions and scallions in soy sauce.</p></article>
+        <article class="item"><div class="item-top"><h3>54. Nuer Pad Nahm Mun Hoi</h3><span class="price">$15.95</span></div><p>Sliced beef sautéed in oyster sauce with black mushrooms and asparagus.</p></article>
+      </div>
+    </section>
+
+    <section class="menu-section" id="pork">
+      <div class="section-heading"><h2>Pork</h2><p class="section-note">All entrees served with white rice.</p></div>
+      <div class="items">
+        <article class="item"><div class="item-top"><h3>61. Pad Woosen</h3><span class="price">$12.95</span></div><p>Clear noodles sautéed with sliced pork, egg, black mushrooms, onions, and scallions.</p></article>
+        <article class="item"><div class="item-top"><h3>62. Pad Tour Ynorg</h3><span class="price">$12.95</span></div><p>Sautéed bean sprouts with sliced pork and scallions.</p></article>
+        <article class="item"><div class="item-top"><h3>63. Pad Puk Gard Kao</h3><span class="price">$12.95</span></div><p>Sautéed napa cabbage with sliced pork and scallions.</p></article>
+        <article class="item"><div class="item-top"><h3>64. Horh Mok</h3><span class="price">$15.95</span></div><p>Steamed pork soufflé-style in a creamy chili sauce on a bed of cabbage and Thai basil.</p><span class="spice">SPICE LEVEL: MILD</span></article>
+      </div>
+    </section>
+
+    <section class="menu-section" id="seafood">
+      <div class="section-heading"><h2>Seafood</h2><p class="section-note">All entrees served with white rice.</p></div>
+      <div class="items">
+        <article class="item"><div class="item-top"><h3>71. Pla Dook Pad Ped</h3><span class="price">$17.95</span></div><p>Crispy fried catfish filet sliced in a spicy pepper sauce with fresh peppers and Thai basil.</p><span class="spice">SPICE LEVEL: MILD</span></article>
+        <article class="item"><div class="item-top"><h3>72. Goung Tod</h3><span class="price">$15.95</span></div><p>Battered fried shrimp and vegetables served with sweet and sour chili sauce.</p></article>
+        <article class="item"><div class="item-top"><h3>73. Pad Cha Talay</h3><span class="price">$20.95</span></div><p>A combination of succulent shrimp, squid, scallops, mussels, and fish filet sautéed with fresh celery in a garlic sauce, sprinkled with roasted garlic bits.</p></article>
+        <article class="item"><div class="item-top"><h3>74. Goung Pad Puk</h3><span class="price">$15.95</span></div><p>Stir-fried shrimp with mixed vegetables.</p></article>
+        <article class="item"><div class="item-top"><h3>75. Pla Manow</h3><span class="price">$17.95</span></div><p>Steamed filet of grouper in a spicy lime sauce.</p><span class="spice">SPICE LEVEL: MILD</span></article>
+        <article class="item"><div class="item-top"><h3>76. Pla Laad Prig</h3><span class="price">Market value</span></div><p>Deep-fried whole snapper topped with Cafe de Siam sweet and tangy pepper sauce.</p><span class="spice">SPICE LEVEL: MILD</span></article>
+      </div>
+    </section>
+
+    <section class="menu-section" id="duck">
+      <div class="section-heading"><h2>Duck</h2><p class="section-note">Served with white rice.</p></div>
+      <div class="items">
+        <article class="item"><div class="item-top"><h3>91. Roasted Duck</h3><span class="price">$18.95</span></div><p>Tender boneless roasted duck simmered in Asian herbs, served with sautéed bok choy and broccoli.</p></article>
+      </div>
+    </section>
+
+    <section class="menu-section" id="noodles">
+      <div class="section-heading"><h2>Noodles</h2></div>
+      <div class="items">
+        <article class="item"><div class="item-top"><h3>81. Ba Mee Nah Gai</h3><span class="price">$12.95</span></div><p>Soft egg noodles and bok choy topped with sliced chicken in a sesame gravy.</p></article>
+        <article class="item"><div class="item-top"><h3>82. Ba Me Laad Nah</h3><span class="price">$12.95</span></div><p>Sautéed egg noodles with chicken, broccoli, cauliflower, snow peas, scallions, and black mushrooms in a bean sauce gravy.</p></article>
+        <article class="item"><div class="item-top"><h3>84. Pad See Eeu</h3><span class="price">$12.95</span></div><p>Stir-fried rice noodles with a choice of chicken or pork with Chinese broccoli.</p><span class="subprice">Beef: $13.95</span></article>
+        <article class="item"><div class="item-top"><h3>85. Laad Nah</h3><span class="price">$12.95</span></div><p>Sautéed rice noodles with chicken or pork with Chinese broccoli in a light bean sauce.</p><span class="subprice">Beef: $13.95</span></article>
+        <article class="item"><div class="item-top"><h3>86. Laad Nah Talay</h3><span class="price">$16.95</span></div><p>Sautéed rice noodles with shrimp, squid, broccoli, cauliflower, baby corn, and snow peas in light bean gravy sauce.</p></article>
+      </div>
+    </section>
+
+    <section class="menu-section" id="side-orders">
+      <div class="section-heading"><h2>Side Orders</h2></div>
+      <div class="items">
+        <article class="item"><div class="item-top"><h3>Pad Puk Ruam</h3><span class="price">$8.00</span></div><p>Sautéed mixed vegetables with basil.</p></article>
+      </div>
+    </section>
+
+    <section class="menu-section" id="rice">
+      <div class="section-heading"><h2>Fried Rice</h2></div>
+      <div class="items">
+        <article class="item"><div class="item-top"><h3>Cau Pad Mooh or Gai</h3><span class="price">$11.95</span></div><p>Fried rice with choice of chicken or pork.</p><span class="subprice">Beef: $12.95</span></article>
+        <article class="item"><div class="item-top"><h3>Cau Pad Goung</h3><span class="price">$14.95</span></div><p>Fried rice with shrimp.</p></article>
+        <article class="item"><div class="item-top"><h3>Cau Pad Puk Ruam</h3><span class="price">$11.95</span></div><p>Fried rice with mixed vegetables.</p></article>
+        <article class="item"><div class="item-top"><h3>Cau Pad Supparodt</h3><span class="price">$14.95</span></div><p>Fried rice with chicken and pineapples.</p></article>
+        <article class="item"><div class="item-top"><h3>Cau Pad Graprau</h3><span class="price">$14.95</span></div><p>Fried rice with ground chicken and Thai basil.</p><span class="spice">SPICE LEVEL: MILD</span><span class="subprice">Beef: $11.95</span></article>
+      </div>
+    </section>
+
+    <section class="menu-section" id="dessert">
+      <div class="section-heading"><h2>Dessert</h2></div>
+      <div class="items">
+        <article class="item"><div class="item-top"><h3>Fried Banana with Ice Cream</h3><span class="price">$8.95</span></div></article>
+        <article class="item"><div class="item-top"><h3>Black Sweet Rice Topped with Coconut Cream</h3><span class="price">$5.95</span></div></article>
+        <article class="item"><div class="item-top"><h3>Custard</h3><span class="price">$5.95</span></div></article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Cafe de Siam</span> · <a href="mybot.html#assistant">Questions about the menu? Ask our restaurant assistant.</a>
+  </footer>
+</body>
+</html>
